@@ -1,20 +1,10 @@
 import telebot
-import sqlite3
-
-#bot
-bot = telebot.Telebot("7004531783:AAFJSGXQXf6cWXrtT5QpEgVF7F6_klt5Qfo")
+bot = telebot.TeleBot('7004531783:AAFJSGXQXf6cWXrtT5QpEgVF7F6_klt5Qfo')
 
 
 @bot.message_handler(commands=['start'])
-def start(message):
-    pass
+def main(message):
+    bot.send_message(message.chat.id, 'Привет!')
 
 
-@bot.message_handler(commands=['delete'])
-def delete(message):
-    pass
-
-
-
-#polling
-bot.polling()
+bot.polling(none_stop=True)
