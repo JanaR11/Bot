@@ -1,10 +1,13 @@
 import telebot
+
 bot = telebot.TeleBot('7004531783:AAFJSGXQXf6cWXrtT5QpEgVF7F6_klt5Qfo')
 
-
 @bot.message_handler(commands=['start'])
-def main(message):
+def handle_start(message):
     bot.send_message(message.chat.id, 'Привет!')
 
+@bot.message_handler(commands=['help'])
+def handle_help(message):
+    bot.send_message(message.chat.id, 'Привет! Я могу помочь тебе. Просто напиши мне, что тебе нужно.')
 
 bot.polling(none_stop=True)
