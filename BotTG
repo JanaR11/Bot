@@ -10,4 +10,13 @@ def handle_start(message):
 def handle_help(message):
     bot.send_message(message.chat.id, 'Привет! Я могу помочь тебе. Просто напиши мне, что тебе нужно.')
 
+@bot.message_handler(commands=['выбор_задания'])
+def handle_select_task(message):
+    # Список задач по математике с Единого государственного экзамена
+    tasks = ['Task 1', 'Task 2', 'Task 3','Task 4', 'Task 5', 'Task 6','Task 7', 'Task 8', 'Task 9', 'Task 10','Task 11', 'Task 12', 'Task 13',  'Task 14', 'Task 15', 'Task 16', 'Task 17','Task 18', 'Task 19']  
+    reply = "Выберите номер задания:\n"
+    for idx, task in enumerate(tasks, start=1):
+        reply += f"{idx}. {task}\n"
+    bot.send_message(message.chat.id, reply)
+
 bot.polling(none_stop=True)
