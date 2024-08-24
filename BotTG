@@ -5,10 +5,16 @@ bot = telebot.TeleBot('7004531783:AAFJSGXQXf6cWXrtT5QpEgVF7F6_klt5Qfo')
 @bot.message_handler(commands=['start'])
 def handle_start(message):
     bot.send_message(message.chat.id, 'Привет!')
+    
+    
+    
 
 @bot.message_handler(commands=['help'])
 def handle_help(message):
     bot.send_message(message.chat.id, 'Привет! Я могу помочь тебе. Просто напиши мне, что тебе нужно.')
+    
+    
+    
 
 @bot.message_handler(commands=['выбор_задания'])
 def handle_select_task(message):
@@ -18,5 +24,26 @@ def handle_select_task(message):
     for idx, task in enumerate(tasks, start=1):
         reply += f"{idx}. {task}\n"
     bot.send_message(message.chat.id, reply)
+    
+    
+    
+    
+@bot.message_handler(commands=['решить_вариант'])
+def handle_resolve_variant(message):
+    keyboard = telebot.types.InlineKeyboardMarkup()
+    
+    ready_btn = telebot.types.InlineKeyboardButton(text='Решить готовый вариант', callback_data='ready')
+    custom_btn = telebot.types.InlineKeyboardButton(text='Составить свой вариант', callback_data='custom')
+    
+    keyboard.add(ready_btn, custom_btn)
+    
+    bot.send_message(message.chat.id, "Выберите вариант:", reply_markup=keyboard)
+
+@bot.callback_query_handler(func=lambda call: True)
+def callback_handler(call):
+    if call.data == 'ready':
+        bot.send_message(call.message.chat.id, "Здесь будет решение готового варианта.")
+    elif call.data == 'custom':
+        bot.send_message(call.message.chat.id, "Введите номер задания для создания своего варианта:")    
 
 bot.polling(none_stop=True)
