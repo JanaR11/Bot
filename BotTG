@@ -38,12 +38,39 @@ def handle_resolve_variant(message):
     keyboard.add(ready_btn, custom_btn)
     
     bot.send_message(message.chat.id, "Выберите вариант:", reply_markup=keyboard)
-
+        
 @bot.callback_query_handler(func=lambda call: True)
 def callback_handler(call):
     if call.data == 'ready':
         bot.send_message(call.message.chat.id, "Здесь будет решение готового варианта.")
     elif call.data == 'custom':
-        bot.send_message(call.message.chat.id, "Введите номер задания для создания своего варианта:")    
+        bot.send_message(call.message.chat.id, "Введите номер задания для создания своего варианта:")
+        
+        
+        
+        
 
+@bot.callback_query_handler(func=lambda call: True)
+def callback_handler(call):
+    if call.data == 'ready':
+        # Здесь вы можете подсчитать общий балл за выполненные задания
+        total_score = calculate_total_score()  # Function to calculate total score
+        bot.send_message(call.message.chat.id, f"Вы набрали {total_score} баллов за решение заданий.")
+    elif call.data == 'custom':
+        bot.send_message(call.message.chat.id, "Введите номер задания для создания своего варианта:")
+        # Здесь вы можете добавить логику для обработки пользовательского ввода для создания пользовательской версии
+        # Для простоты я буду использовать вводимые пользователем данные для решения задачи
+        # Предположим, что пользователь правильно решает задачу
+        is_correct = True  # Отрегулируйте это в соответствии с вашей реальной логикой, чтобы проверить правильность
+        if is_correct:
+            bot.send_message(call.message.chat.id, "Всё решено верно!")
+        else:
+            bot.send_message(call.message.chat.id, "Есть ошибки!")
+
+# Определите функцию-заполнитель для расчета общего балла за выполненные задания
+def calculate_total_score():
+    # Добавьте свою логику для расчета и возврата общего балла
+    # Это функция-заполнитель, которая должна быть реализована на основе вашей системы подсчета очков
+
+# Запустите бота
 bot.polling(none_stop=True)
